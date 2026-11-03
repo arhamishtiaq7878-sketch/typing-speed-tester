@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b18">
+<title>TypeSprint 3D — Typing Speed Test</title>
+<style>
+:root{--bg:#070b18;--panel:#111a31;--mint:#63f2c4;--blue:#6da8ff;--muted:#93a3c4;--white:#f2f6ff;--line:#314568;--red:#ff7185}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--white);font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(ellipse at 50% 0%,#1d3761 0%,#101a34 36%,#070b18 75%);perspective:1200px}
+body:before,body:after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(2px);pointer-events:none}
+body:before{width:430px;height:430px;top:12%;left:-210px;background:radial-gradient(circle,#246b7b55,transparent 70%)}
+body:after{width:500px;height:500px;right:-230px;bottom:-120px;background:radial-gradient(circle,#3158a455,transparent 70%)}
+header{max-width:1120px;margin:auto;padding:25px 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:21px;letter-spacing:-1px;text-shadow:0 3px 20px #63f2c455}.logo b{color:var(--mint)}
+.badge{font-size:10px;letter-spacing:.17em;color:#b8c9e9;border:1px solid #7d9acb55;background:#ffffff08;padding:9px 14px;border-radius:30px;box-shadow:inset 0 1px #ffffff16,0 5px 18px #0004}
+main{max-width:1040px;margin:28px auto 70px;padding:0 24px}
+.intro{text-align:center;margin-bottom:35px}
+.eyebrow{color:var(--mint);font-size:10px;font-weight:900;letter-spacing:.28em;text-shadow:0 0 16px #63f2c477}
+h1{font-size:clamp(38px,6vw,66px);line-height:1;margin:15px 0 12px;letter-spacing:-3px;text-shadow:0 5px 0 #182647,0 12px 35px #0008}
+h1 em{font-style:normal;color:var(--mint);text-shadow:0 0 30px #63f2c466}
+.intro p{color:var(--muted);font-size:14px;margin:0}
+.panel{position:relative;background:linear-gradient(145deg,#1b2948ee,#0c1429f5);border:1px solid #7895c755;border-radius:25px;padding:25px;box-shadow:0 35px 70px #0008,0 12px 0 #080e20,0 14px 0 1px #293c62,inset 0 1px 1px #ffffff35,inset 0 -2px 8px #0006;transform:rotateX(1deg);transform-style:preserve-3d}
+.panel:before{content:"";position:absolute;inset:0;border-radius:25px;background:linear-gradient(120deg,#ffffff0d,transparent 35%,#6da8ff0a);pointer-events:none}
+.toolbar{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.group{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer}
+.pill{color:#aebfdf;background:linear-gradient(180deg,#263858,#17243d);border:1px solid #526b94;border-radius:10px;padding:10px 14px;font-size:12px;box-shadow:0 4px 0 #0a1223,0 7px 13px #0005,inset 0 1px #ffffff20;transition:.18s}
+.pill:hover{transform:translateY(-2px);color:white;border-color:var(--mint)}
+.pill.active{color:#061a17;background:linear-gradient(180deg,#9affdf,#47d9b0);border-color:#b7ffe9;box-shadow:0 4px 0 #168b72,0 8px 18px #35d6ad35,inset 0 1px #ffffffaa;font-weight:800;transform:translateY(-1px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:23px;transform:translateZ(18px)}
+.stat{position:relative;overflow:hidden;background:linear-gradient(145deg,#1b2a49,#0c152b);border:1px solid #4b638d;border-radius:15px;padding:15px 17px;box-shadow:0 7px 0 #080f20,0 12px 20px #0005,inset 0 1px #ffffff20}
+.stat:after{content:"";position:absolute;width:90px;height:90px;right:-38px;top:-45px;border-radius:50%;background:#6da8ff12;box-shadow:0 0 35px #6da8ff18}
+.stat label{display:block;color:#91a8ce;font-size:9px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:9px}
+.stat strong{font-size:27px;letter-spacing:-1px;text-shadow:0 2px 12px #63f2c422}.stat small{font-size:10px;color:#93a3c4;margin-left:4px}
+.textbox{position:relative;min-height:185px;padding:24px;background:linear-gradient(145deg,#081225,#111d35);border:1px solid #3b527a;border-radius:17px;box-shadow:inset 0 5px 15px #0008,0 5px 0 #080f20,0 9px 20px #0005;cursor:text;transform:translateZ(12px)}
+#quote{font:21px/1.9 ui-monospace,SFMono-Regular,Consolas,monospace;color:#7183a6;word-break:break-word;user-select:none}
+#quote span.correct{color:var(--mint);text-shadow:0 0 12px #63f2c433}
+#quote span.incorrect{color:var(--red);background:#ff718522;border-radius:3px}
+#quote span.current{border-left:2px solid #ffe18b;margin-left:-2px;animation:blink .8s infinite}
+@keyframes blink{50%{border-color:transparent}}
+#input{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;border:0;cursor:text}
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#081225c9;border-radius:17px;text-align:center;padding:20px;color:#dce7fb;font-size:14px;backdrop-filter:blur(3px);pointer-events:none}
+.overlay.hidden{display:none}.overlay span{color:var(--mint);font-weight:800}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:21px}
+.hint{font-size:11px;color:#8fa2c4}
+.primary{border:1px solid #baffea;background:linear-gradient(180deg,#a4ffe2,#4bdab2);color:#06221a;font-weight:900;padding:12px 20px;border-radius:11px;font-size:12px;box-shadow:0 5px 0 #168b72,0 10px 20px #35d6ad30,inset 0 1px #fff;transition:.15s}
+.primary:hover{transform:translateY(-2px);box-shadow:0 7px 0 #168b72,0 13px 22px #35d6ad40}
+.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #168b72}
+.results{display:none;margin-top:22px;background:linear-gradient(145deg,#123c3b,#102a36);border:1px solid #50d6b080;border-radius:16px;padding:20px;box-shadow:0 7px 0 #071b26,inset 0 1px #ffffff20}
+.results.show{display:block}.results h2{margin:0 0 8px;color:var(--mint)}.results p{margin:0;color:#c1d8d0;font-size:13px;line-height:1.6}
+footer{text-align:center;color:#7183a6;font-size:11px;padding:0 20px 28px}
+@media(max-width:650px){main{margin-top:18px;padding:0 15px}.panel{padding:16px;transform:none}.stats{grid-template-columns:repeat(2,1fr)}.textbox{padding:17px;min-height:220px}#quote{font-size:17px;line-height:1.85}h1{letter-spacing:-2px}.badge{font-size:9px}}
+@media(prefers-reduced-motion:no-preference){.panel{animation:rise .7s ease both}.stat{animation:pop .55s ease both}.stat:nth-child(2){animation-delay:.06s}.stat:nth-child(3){animation-delay:.12s}.stat:nth-child(4){animation-delay:.18s}@keyframes rise{from{opacity:0;transform:translateY(18px) rotateX(5deg)}to{opacity:1;transform:rotateX(1deg)}}@keyframes pop{from{opacity:0;transform:translateY(12px) translateZ(0)}to{opacity:1;transform:translateY(0) translateZ(18px)}}}
+</style>
+</head>
+<body>
+<header><div class="logo">Type<b>Sprint</b> 3D.</div><div class="badge">✦ &nbsp; FREE TYPING TEST</div></header>
+<main>
+<section class="intro"><div class="eyebrow">PRACTICE · IMPROVE · REPEAT</div><h1>Find your <em>typing speed.</em></h1><p>A little practice every day makes a big difference. Ready, set, type!</p></section>
+<section class="panel">
+ <div class="toolbar">
+  <div class="group" aria-label="Text difficulty"><button class="pill active" data-mode="easy">Easy</button><button class="pill" data-mode="medium">Medium</button><button class="pill" data-mode="hard">Hard</button></div>
+  <div class="group" aria-label="Test duration"><button class="pill" data-time="15">15 sec</button><button class="pill active" data-time="30">30 sec</button><button class="pill" data-time="60">60 sec</button></div>
+ </div>
+ <div class="stats">
+  <div class="stat"><label>Time left</label><strong id="time">30</strong><small>sec</small></div>
+  <div class="stat"><label>Typing speed</label><strong id="wpm">0</strong><small>WPM</small></div>
+  <div class="stat"><label>Accuracy</label><strong id="accuracy">100</strong><small>%</small></div>
+  <div class="stat"><label>Characters</label><strong id="chars">0</strong><small>typed</small></div>
+ </div>
+ <div class="textbox" id="textbox" role="group" aria-label="Typing practice area">
+  <div id="quote"></div><textarea id="input" aria-label="Type the displayed text here" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+  <div class="overlay" id="overlay"><div>Click here or press <span>Start Test</span> to begin</div></div>
+ </div>
+ <div class="actions"><span class="hint">⌨ Timer begins with your first keystroke.</span><button class="primary" id="restart">↻ &nbsp; Restart test</button></div>
+ <div class="results" id="results"><h2>✦ Test complete!</h2><p id="summary"></p></div>
+</section>
+</main>
+<footer>TypeSprint 3D · Practice makes progress.</footer>
+<script>
+const passages={
+ easy:["The best way to learn is to practice a little every day. Stay patient and enjoy the process.","A calm mind and steady hands can make every task easier. Keep going and do your best.","Reading books and learning new skills can open doors to exciting opportunities.","Small steps every day can lead to big achievements. Focus on progress, not perfection."],
+ medium:["Technology helps people connect, create, and share ideas across the world. Learning new tools can make everyday work faster and easier.","A good routine does not need to be complicated. Set a clear goal, remove distractions, and give your best effort to the task in front of you.","Creative thinking begins with curiosity. Ask questions, explore different ideas, and be willing to learn something new from every experience."],
+ hard:["Great work rarely happens by accident; it is built through curiosity, consistency, thoughtful decisions, and the willingness to improve after every attempt.","Modern websites combine accessible design, responsive layouts, reliable performance, and clear content to create a useful experience for every visitor.","When solving a difficult problem, break it into smaller parts, test your assumptions, review the results, and refine your approach with care."]
+};
+const $=id=>document.getElementById(id);let mode='easy',duration=30,timeLeft=30,timer=null,started=false,finished=false,passage='',typed='';
+function choosePassage(){const a=passages[mode];return a[Math.floor(Math.random()*a.length)];}
+function render(){$('quote').innerHTML='';[...passage].forEach((ch,i)=>{const s=document.createElement('span');s.textContent=ch;if(i<typed.length)s.className=typed[i]===ch?'correct':'incorrect';if(i===typed.length)s.classList.add('current');$('quote').appendChild(s);});}
+function metrics(){const elapsed=Math.max(.1,(duration-timeLeft)/60);let correct=0;for(let i=0;i<typed.length;i++)if(typed[i]===passage[i])correct++;$('accuracy').textContent=typed.length?Math.round(correct/typed.length*100):100;$('wpm').textContent=Math.round((correct/5)/elapsed);$('chars').textContent=typed.length;}
+function reset(){clearInterval(timer);timer=null;started=false;finished=false;typed='';timeLeft=duration;passage=choosePassage();$('time').textContent=timeLeft;$('wpm').textContent='0';$('accuracy').textContent='100';$('chars').textContent='0';$('results').classList.remove('show');$('overlay').classList.remove('hidden');$('overlay').innerHTML='<div>Click here or press <span>Start Test</span> to begin</div>';$('input').value='';$('input').disabled=false;render();}
+function start(){if(started||finished)return;started=true;$('overlay').classList.add('hidden');$('input').focus();timer=setInterval(()=>{timeLeft--;$('time').textContent=timeLeft;metrics();if(timeLeft<=0)finish();},1000);}
+function finish(){if(finished)return;finished=true;started=false;clearInterval(timer);timer=null;$('input').disabled=true;$('overlay').classList.remove('hidden');$('overlay').innerHTML='<div><span>Time is up!</span> &nbsp; Your result is ready.</div>';metrics();$('summary').textContent=`You typed ${typed.length} characters at ${$('wpm').textContent} WPM with ${$('accuracy').textContent}% accuracy. Practice again to improve your score.`;$('results').classList.add('show');}
+$('input').addEventListener('input',e=>{if(finished)return;const value=e.target.value;if(!started&&value.length)start();typed=value.slice(0,passage.length);if(value.length>passage.length)e.target.value=typed;render();metrics();if(typed.length===passage.length)finish();});
+$('textbox').addEventListener('click',()=>{if(!finished)$('input').focus();});$('restart').addEventListener('click',reset);
+document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x===b));reset();}));
+document.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>{duration=Number(b.dataset.time);document.querySelectorAll('[data-time]').forEach(x=>x.classList.toggle('active',x===b));reset();}));
+reset();
+</script>
+</body>
+</html>
